@@ -1,0 +1,30 @@
+<mat-nav-list>
+  <a
+  mat-list-item
+  *ngFor="let movie of favList"
+  (click)="showMovieDetails(movie.id)"
+  >
+    <img
+      [src]="
+        'https://image.tmdb.org/t/p/w300_and_h450_bestv2/' + movie.poster_path
+      "
+      alt=""
+    />
+    <span>{{ movie.original_title }}</span>
+  </a>
+
+  <!-- <a href="https://docs.google.com/" mat-list-item >
+      <span >Google Docs</span>
+      <span >Embed in a document</span>
+    </a>
+  
+    <a href="https://plus.google.com/" mat-list-item >
+      <span >Google Plus</span>
+      <span >Share with your friends</span>
+    </a>
+  
+    <a href="https://hangouts.google.com/" mat-list-item >
+      <span >Google Hangouts</span>
+      <span >Show to your coworkers</span>
+    </a> -->
+</mat-nav-list>
