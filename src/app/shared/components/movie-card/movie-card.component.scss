@@ -1,0 +1,19 @@
+article {
+    img {
+      width: 100%;
+      border-radius: rem(4px);
+    }
+
+    h3 {
+      font-size: rem(15px);
+      color: #fff;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    span {
+      font-size: rem(12px);
+      color: #ccc;
+    }
+  }
