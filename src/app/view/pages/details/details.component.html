@@ -1,0 +1,87 @@
+<div class="details-container">
+  <div class="details-container__content" [style]="getBackUrl()" @fadeIn>
+    <div class="details-container__content__overlay">
+      <div class="details-container__content_info">
+        <div class="details-container__poster">
+          <img [src]="getPostUrl()" alt="" />
+        </div>
+        <h3></h3>
+        <span></span>
+        <div class="details-container__details">
+          <h1 class="details-container__details--title">
+            {{ movieDetails?.original_title }}
+          </h1>
+          <p class="details-container__details--tagline">
+            {{ movieDetails?.tagline }}
+          </p>
+
+          <span class="details-container__details--subtitle">Descrição</span>
+          <p class="details-container__details--description">
+            {{ movieDetails?.overview }}
+          </p>
+
+          <button class="details-container__details--btn" (click)="openTrailerModal()">
+            Ver trailer
+          </button>
+          <button
+            class="details-container__details--btn-fav"
+            (click)="
+              isFav
+              ? removeMovieFromFav(movieDetails)
+                : addMovieToFav(movieDetails)
+            "
+          >
+            {{ isFav ? "Remover favorito" : "Adicionar aos favoritos" }}
+          </button>
+
+          <span class="details-container__details--subtitle">Categorias</span>
+          <ul class="details-container__details_categories">
+            <li *ngFor="let genre of movieDetails?.genres">
+              {{ genre?.name }}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="details-container__recommend-movies" @fadeIn>
+    <div class="details-container__recommend-movies__content">
+      <div class="details-container__recommend-movies__title">
+        <img src="assets/img/movie.svg" alt="" />
+        <h3>Filme recomendados</h3>
+      </div>
+
+      <app-movie-card-list>
+        <app-movie-card
+          *ngFor="let movie of recoList"
+          [movie]="movie"
+        ></app-movie-card>
+      </app-movie-card-list>
+
+      <!-- <div class="details-container__recommend-movies__content__list">
+        <div *ngFor="let i of f">
+          <article>
+            <img
+              src="https://image.tmdb.org/t/p/w300_and_h450_bestv2/vcQQx1z5iUbqZ3uJXvfCCMN3HPb.jpg"
+              alt=""
+            />
+            <h3>Heart of Stone</h3>
+            <span>Aug 9, 2023</span>
+          </article>
+        </div>
+      </div> -->
+    </div>
+  </div>
+</div>
+
+<!-- <div *ngIf="videoUrl">
+    <iframe
+    width="auto"
+    height="auto"
+    [src]="videoUrl"
+    frameborder="0"
+    allowfullscreen
+    include
+></iframe>
+</div> -->
