@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -9,14 +10,12 @@ export class ThemoviedbService {
 
   getMoviesList(listType: string, page: any) {
     return this.http.get(
-      `https://api.themoviedb.org/3/movie/${listType}?language=en-US&page=${page}`
+      `${environment.apiBaseUrl}${listType}?language=en-US&page=${page}`
     );
   }
 
   getMoviebyId(movieId: number) {
-    return this.http.get(
-      `https://api.themoviedb.org/3/movie/${movieId}?language=en-US`
-    );
+    return this.http.get(`${environment.apiBaseUrl}${movieId}?language=en-US`);
   }
 
   getMoviesByKeyword(keyWord: string) {
@@ -27,13 +26,13 @@ export class ThemoviedbService {
 
   getRecommendationsMovies(movieId: number) {
     return this.http.get(
-      `https://api.themoviedb.org/3/movie/${movieId}/recommendations?language=en-US&page=1`
+      `${environment.apiBaseUrl}${movieId}/recommendations?language=en-US&page=1`
     );
   }
 
   getMovieVideo(movieId: number) {
     return this.http.get(
-      `https://api.themoviedb.org/3/movie/${movieId}/videos?language=en-US`
+      `${environment.apiBaseUrl}${movieId}/videos?language=en-US`
     );
   }
 
