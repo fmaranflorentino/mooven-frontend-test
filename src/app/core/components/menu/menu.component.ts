@@ -34,12 +34,9 @@ export class MenuComponent implements OnInit {
       this.favCount = JSON.parse(favList).length;
     }
 
-    console.log(this.favCount);
   }
 
-  teste() {
-    // this.router.navigate(['movies']);
-
+  openFavList() {
     this._bottomSheet.open(FavListComponent);
   }
 }

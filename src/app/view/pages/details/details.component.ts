@@ -26,7 +26,6 @@ export class DetailsComponent implements OnInit {
   videoUrl: any;
   isFav = false;
   constructor(
-    private http: HttpClient,
     private route: ActivatedRoute,
     public dialog: MatDialog,
     private sanitizer: DomSanitizer,
@@ -43,31 +42,20 @@ export class DetailsComponent implements OnInit {
 
         const favList = localStorage.getItem('favList');
 
-      if (favList) {
-        console.log('is');
-        const tt = JSON.parse(favList).filter((movie: any) => {
-          console.log('MOVIE', movie);
-          console.log('DET', this.movieDetails);
+        if (favList) {
+          const parsedfavList = JSON.parse(favList).filter((movie: any) => {
+            if (movie.id === this.movieDetails.id) {
+              return movie;
+            }
+          });
 
-          if (movie.id === this.movieDetails.id) {
-            console.log('ID');
-            return movie;
-          }
-        });
-        console.log('tt', tt);
-
-        this.isFav = tt.length;
-      }
+          this.isFav = parsedfavList.length;
+        }
       });
 
       this.getRecommendMovies();
-
       this.getMovieTrailer();
     });
-
-   
-
-   
   }
 
   getPostUrl() {
@@ -106,12 +94,13 @@ export class DetailsComponent implements OnInit {
     const favList = localStorage.getItem('favList');
 
     if (favList) {
-      const tt = JSON.parse(favList);
-      tt.push(movie);
-      console.log('fav', tt);
-      localStorage.setItem('favList', JSON.stringify(tt));
+      const parsedfavList = JSON.parse(favList);
+      parsedfavList.push(movie);
+      localStorage.setItem('favList', JSON.stringify(parsedfavList));
       this.isFav = true;
-      this.store.dispatch(incrementFavList({ favLength: tt.length }));
+      this.store.dispatch(
+        incrementFavList({ favLength: parsedfavList.length })
+      );
 
       return;
     }
@@ -125,18 +114,16 @@ export class DetailsComponent implements OnInit {
     const favList = localStorage.getItem('favList');
 
     if (favList) {
-      const tt = JSON.parse(favList).filter((m: any) => {
-        if (m.id === this.movieDetails.id) {
-          console.log('ID');
+      const parsedFavList = JSON.parse(favList).filter((movie: any) => {
+        if (movie.id === this.movieDetails.id) {
           return;
         }
-        return m;
+        return movie;
       });
 
       this.isFav = false;
-      console.log(tt);
-      localStorage.setItem('favList', JSON.stringify(tt));
-      this.store.dispatch(decrementFavList({ favLength: tt.length }));
+      localStorage.setItem('favList', JSON.stringify(parsedFavList));
+      this.store.dispatch(decrementFavList({ favLength: parsedFavList.length }));
     }
   }
 }

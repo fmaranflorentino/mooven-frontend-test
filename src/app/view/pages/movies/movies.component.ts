@@ -42,7 +42,6 @@ export class MoviesComponent implements OnInit {
   ngOnInit(): void {
     this.moviesdb.getAllGenders().subscribe((r: any) => {
       this.genres = r.genres;
-      console.log('g', this.genres);
     });
     this.store.dispatch(requestMoviesList({ page: this.pageIndex }));
   }
@@ -53,7 +52,6 @@ export class MoviesComponent implements OnInit {
   }
 
   searchMovie(e: any) {
-    console.log(e.target.value.length);
     this.activeGenre = null;
     this.searchValue = e.target.value;
     if (e.target.value.length > 3) {
