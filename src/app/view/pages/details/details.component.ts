@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DomSanitizer } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { ThemoviedbService } from 'src/app/data/services/themoviedb.service';
 import {
@@ -30,7 +30,8 @@ export class DetailsComponent implements OnInit {
     public dialog: MatDialog,
     private sanitizer: DomSanitizer,
     private moviesdb: ThemoviedbService,
-    private store: Store
+    private store: Store,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -56,6 +57,12 @@ export class DetailsComponent implements OnInit {
       this.getRecommendMovies();
       this.getMovieTrailer();
     });
+  }
+
+  getFormattedDate(date: string) {
+    const formattedDate = new Date(date);
+
+    return formattedDate.toLocaleString('pt-BR', { timeZone: 'UTC' })
   }
 
   getPostUrl() {
@@ -125,5 +132,9 @@ export class DetailsComponent implements OnInit {
       localStorage.setItem('favList', JSON.stringify(parsedFavList));
       this.store.dispatch(decrementFavList({ favLength: parsedFavList.length }));
     }
+  }
+
+  showMovieDetails(movie: any) {
+    this.router.navigate([`details/${movie.id}`]);
   }
 }

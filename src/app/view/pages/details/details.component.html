@@ -36,6 +36,10 @@
           >
             {{ isFav ? "Remove from favorites" : "Add to favorites" }}
           </button>
+          <span class="release-data"
+            >Reselease date:
+            {{ getFormattedDate(movieDetails?.release_date) }}</span
+          >
 
           <span class="details-container__details--subtitle">Categories</span>
           <ul class="details-container__details_categories">
@@ -59,6 +63,7 @@
         <app-movie-card
           *ngFor="let movie of recoList"
           [movie]="movie"
+          (click)="showMovieDetails(movie)"
         ></app-movie-card>
       </app-movie-card-list>
     </div>

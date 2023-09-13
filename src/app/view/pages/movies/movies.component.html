@@ -26,7 +26,7 @@
     <img src="assets/img/movie.svg" alt="" />
     <h3>Movies</h3>
   </div>
-  <app-movie-card-list @listState *ngIf="movies$">
+  <app-movie-card-list @listState *ngIf="(movies$ | async)">
     <app-movie-card
       *ngFor="let movie of movies$ | async"
       [movie]="movie"
@@ -44,8 +44,8 @@
   >
   </mat-paginator>
 
-  <div class="no-results" *ngIf="!movies$">
-    Nenhum filme encontrado para a busca '{{ searchValue }}'
+  <div class="no-results" *ngIf="!(movies$ | async).results">
+   No results found for the search value: '{{ searchValue }}'
   </div>
 </section>
 

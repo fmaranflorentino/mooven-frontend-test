@@ -1,8 +1,8 @@
-<mat-nav-list>
+<mat-nav-list *ngIf="favList">
   <a
-  mat-list-item
-  *ngFor="let movie of favList"
-  (click)="showMovieDetails(movie.id)"
+    mat-list-item
+    *ngFor="let movie of favList"
+    (click)="showMovieDetails(movie.id)"
   >
     <img
       [src]="
@@ -10,6 +10,13 @@
       "
       alt=""
     />
-    <span>{{ movie.original_title }}</span>
+    <div>
+      <span>{{ movie.original_title }}</span>
+      <span>Release date: {{ movie.release_date }}</span>
+    </div>
   </a>
 </mat-nav-list>
+
+<p *ngIf="!favList?.length">
+  Add movies to your fav list!
+</p>
